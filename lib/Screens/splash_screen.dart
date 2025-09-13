@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:countify/Screens/login.dart';
 import 'package:flutter/material.dart';
 
 class MySplashScreen extends StatefulWidget {
@@ -8,9 +11,15 @@ class MySplashScreen extends StatefulWidget {
 }
 
 class _MySplashScreenState extends State<MySplashScreen> {
-
   @override
   void initState() {
+    Timer(
+      Duration(seconds: 2),
+      () => Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => MyLogin()),
+      ),
+    );
     super.initState();
   }
 
