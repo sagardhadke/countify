@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MyLogin extends StatefulWidget {
   const MyLogin({super.key});
@@ -12,6 +13,14 @@ class _MyLoginState extends State<MyLogin> {
   TextEditingController pass = TextEditingController();
 
   bool isObscure = false;
+
+  bool userLogin = false;
+
+  @override
+  void initState() {
+    super.initState();
+    getLoginStatus();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -105,6 +114,7 @@ class _MyLoginState extends State<MyLogin> {
                   foregroundColor: Colors.white,
                 ),
                 onPressed: () {
+                  saveLoginStatus(true);
                   const snackdemo = SnackBar(
                     content: Row(
                       children: [
@@ -132,5 +142,18 @@ class _MyLoginState extends State<MyLogin> {
         ),
       ),
     );
+  }
+
+  void saveLoginStatus(bool loginStatus) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool("LoginStatus", loginStatus);
+  }
+
+  void getLoginStatus() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      userLogin = prefs.getBool("LoginStatus") ?? false;
+      print("isuserLogin Status $userLogin");
+    });
   }
 }
