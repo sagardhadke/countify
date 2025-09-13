@@ -1,3 +1,4 @@
+import 'package:countify/Screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -19,7 +20,6 @@ class _MyLoginState extends State<MyLogin> {
   @override
   void initState() {
     super.initState();
-    getLoginStatus();
   }
 
   @override
@@ -114,7 +114,6 @@ class _MyLoginState extends State<MyLogin> {
                   foregroundColor: Colors.white,
                 ),
                 onPressed: () {
-                  saveLoginStatus(true);
                   const snackdemo = SnackBar(
                     content: Row(
                       children: [
@@ -129,8 +128,14 @@ class _MyLoginState extends State<MyLogin> {
                     elevation: 10,
                     behavior: SnackBarBehavior.floating,
                     margin: EdgeInsets.all(5),
+                    duration: Duration(seconds: 1),
                   );
                   ScaffoldMessenger.of(context).showSnackBar(snackdemo);
+                  saveLoginStatus(true);
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => HomeScreen()),
+                  );
                 },
                 child: Text(
                   "LOGIN",
@@ -147,13 +152,5 @@ class _MyLoginState extends State<MyLogin> {
   void saveLoginStatus(bool loginStatus) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool("LoginStatus", loginStatus);
-  }
-
-  void getLoginStatus() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      userLogin = prefs.getBool("LoginStatus") ?? false;
-      print("isuserLogin Status $userLogin");
-    });
   }
 }

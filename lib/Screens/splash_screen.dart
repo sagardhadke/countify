@@ -1,7 +1,9 @@
 import 'dart:async';
 
+import 'package:countify/Screens/home_screen.dart';
 import 'package:countify/Screens/login.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MySplashScreen extends StatefulWidget {
   const MySplashScreen({super.key});
@@ -11,16 +13,31 @@ class MySplashScreen extends StatefulWidget {
 }
 
 class _MySplashScreenState extends State<MySplashScreen> {
+  bool isUserLogin = false;
+
   @override
   void initState() {
+    checkUserLoginStatus();
+    print(isUserLogin);
     Timer(
       Duration(seconds: 2),
-      () => Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => MyLogin()),
-      ),
+      () => isUserLogin
+          ? Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => HomeScreen()),
+            )
+          : Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => MyLogin()),
+            ),
     );
     super.initState();
+  }
+
+  void checkUserLoginStatus() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    isUserLogin = prefs.getBool("LoginStatus") ?? false;
+    print("Login Status $isUserLogin");
   }
 
   @override
