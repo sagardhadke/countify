@@ -1,4 +1,4 @@
-import 'package:countify/Screens/login.dart';
+import 'package:countify/Routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -93,9 +93,10 @@ class _HomeScreenState extends State<HomeScreen> {
   void userLogout(BuildContext cont) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.clear();
-    Navigator.pushReplacement(
+    Navigator.pushReplacementNamed(
       cont,
-      MaterialPageRoute(builder: (_) => MyLogin()),
+      // MaterialPageRoute(builder: (_) => MyLogin()),
+      AppRoutes.login_screen,
     );
   }
 }

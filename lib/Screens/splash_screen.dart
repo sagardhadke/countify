@@ -1,7 +1,6 @@
 import 'dart:async';
 
-import 'package:countify/Screens/home_screen.dart';
-import 'package:countify/Screens/login.dart';
+import 'package:countify/Routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -22,13 +21,15 @@ class _MySplashScreenState extends State<MySplashScreen> {
     Timer(
       Duration(seconds: 2),
       () => isUserLogin
-          ? Navigator.pushReplacement(
+          ? Navigator.pushReplacementNamed(
               context,
-              MaterialPageRoute(builder: (context) => HomeScreen()),
+              // MaterialPageRoute(builder: (context) => HomeScreen()),
+              AppRoutes.home_page,
             )
-          : Navigator.pushReplacement(
+          : Navigator.pushReplacementNamed(
               context,
-              MaterialPageRoute(builder: (context) => MyLogin()),
+              // MaterialPageRoute(builder: (context) => MyLogin()),
+              AppRoutes.login_screen,
             ),
     );
     super.initState();

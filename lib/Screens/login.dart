@@ -1,4 +1,4 @@
-import 'package:countify/Screens/home_screen.dart';
+import 'package:countify/Routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -132,9 +132,10 @@ class _MyLoginState extends State<MyLogin> {
                   );
                   ScaffoldMessenger.of(context).showSnackBar(snackdemo);
                   saveLoginStatus(true);
-                  Navigator.pushReplacement(
+                  Navigator.pushReplacementNamed(
                     context,
-                    MaterialPageRoute(builder: (context) => HomeScreen()),
+                    // MaterialPageRoute(builder: (context) => HomeScreen()),
+                    AppRoutes.home_page
                   );
                 },
                 child: Text(
