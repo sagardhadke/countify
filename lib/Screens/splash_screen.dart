@@ -16,29 +16,29 @@ class _MySplashScreenState extends State<MySplashScreen> {
 
   @override
   void initState() {
+    super.initState();
     checkUserLoginStatus();
     print(isUserLogin);
-    Timer(
-      Duration(seconds: 2),
-      () => isUserLogin
-          ? Navigator.pushReplacementNamed(
-              context,
-              // MaterialPageRoute(builder: (context) => HomeScreen()),
-              AppRoutes.home_page,
-            )
-          : Navigator.pushReplacementNamed(
-              context,
-              // MaterialPageRoute(builder: (context) => MyLogin()),
-              AppRoutes.login_screen,
-            ),
-    );
-    super.initState();
   }
 
   void checkUserLoginStatus() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     isUserLogin = prefs.getBool("LoginStatus") ?? false;
     print("Login Status $isUserLogin");
+
+    await Future.delayed(Duration(seconds: 2));
+
+    Navigator.pushReplacementNamed(
+      context,
+      isUserLogin ? AppRoutes.home_page : AppRoutes.login_screen,
+    );
+
+    // Timer(
+    //   Duration(seconds: 2),
+    //   () => isUserLogin
+    //       ? Navigator.pushReplacementNamed(context, AppRoutes.home_page)
+    //       : Navigator.pushReplacementNamed(context, AppRoutes.login_screen),
+    // );
   }
 
   @override

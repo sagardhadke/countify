@@ -15,24 +15,26 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    getUserCount();
-    saveUesCount();
+    userCount();
   }
 
-  void getUserCount() async {
+  void userCount() async {
+    await getUserCount();
+    await saveUesCount();
+  }
+
+  Future<void> getUserCount() async {
     final SharedPreferences pref = await SharedPreferences.getInstance();
-    setState(() {
-      count = pref.getInt("Count") ?? 0;
-      print("user Count $count");
-    });
+    count = pref.getInt("Count") ?? 0;
+    print("previous Count $count");
   }
 
-  void saveUesCount() async {
+  Future<void> saveUesCount() async {
     final SharedPreferences pref = await SharedPreferences.getInstance();
     setState(() {
       count++;
       pref.setInt("Count", count);
-      print("Count $count");
+      print("new Count $count");
     });
   }
 
